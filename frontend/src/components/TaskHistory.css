@@ -1,0 +1,56 @@
+.task-history-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.task-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.task-table th, .task-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.task-table th {
+    background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+    .task-table thead {
+        display: none;
+    }
+
+    .task-table, 
+    .task-table tbody, 
+    .task-table tr, 
+    .task-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .task-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+    }
+
+    .task-table td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .task-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+}

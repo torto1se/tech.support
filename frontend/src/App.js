@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import RegistrationPage from "./components/RegistrationPage";
 import LoginPage from "./components/LoginPage";
 import TaskPage from "./components/TaskPage";
@@ -9,6 +9,7 @@ function App() {
   return (
   <>
     <Routes>
+      <Route path="/" element={<Navigate to={'/login'} />} />
       <Route path="/registration" element={<RegistrationPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/task" element={<TaskPage />} />

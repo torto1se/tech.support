@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 import { useNavigate } from "react-router-dom";
+import './TaskHistory.css'; // Импортируем файл стилей
 
 function TaskHistory() {
     const [tasks, setTasks] = useState([]);
@@ -10,9 +11,9 @@ function TaskHistory() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/login'); // Перенаправление на страницу входа
+            navigate('/login');
         } else {
-            fetchTasks(token); // Загружаем задачи только если токен есть
+            fetchTasks(token);
         }
     }, [navigate]);
 
@@ -36,26 +37,26 @@ function TaskHistory() {
     };
 
     return ( 
-        <div>
+        <div className="task-history-container">
             <Error message={error} />
             <h3>История обращений</h3>
             {tasks.length > 0 ? (
-                <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                <table className="task-table">
                     <thead>
                         <tr>
-                            <th style={{ border: '1px solid black', padding: '8px' }}>ФИО</th>
-                            <th style={{ border: '1px solid black', padding: '8px' }}>Категория</th>
-                            <th style={{ border: '1px solid black', padding: '8px' }}>Статус</th>
-                            <th style={{ border: '1px solid black', padding: '8px' }}>Описание</th>
+                            <th>ФИО</th>
+                            <th>Категория</th>
+                            <th>Статус</th>
+                            <th>Описание</th>
                         </tr>
                     </thead>
                     <tbody>
                         {tasks.map(task => (
                             <tr key={task.task_id}>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>{task.full_name}</td>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>{task.category_name}</td>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>{task.status_name}</td>
-                                <td style={{ border: '1px solid black', padding: '8px' }}>{task.description}</td>
+                                <td>{task.full_name}</td>
+                                <td>{task.category_name}</td>
+                                <td>{task.status_name}</td>
+                                <td>{task.description}</td>
                             </tr>
                         ))}
                     </tbody>

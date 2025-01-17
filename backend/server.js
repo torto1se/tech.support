@@ -18,12 +18,9 @@ const db = new sqlite3.Database('./database.db', (err) => {
     console.log('Успешное подключение к БД!');
 });
 
-
-
 app.post('/registration', (req, res) => {
     const { id_department, password, full_name, phone, email } = req.body;
 
-    // Проверка на существование пользователя по email
     db.get(`SELECT * FROM user WHERE email = ?`, [email], (err, row) => {
         if (err) {
             return res.status(500).json({ error: err.message });
@@ -32,13 +29,11 @@ app.post('/registration', (req, res) => {
             return res.status(400).json({ error: 'Пользователь с таким email уже существует!' });
         }
 
-        // Хэширование пароля
         bcrypt.hash(password, 10, (err, hash) => {
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
 
-            // Исправленный запрос на вставку
             db.run(`INSERT INTO user (id_role, id_department, password, full_name, phone, email) VALUES (?, ?, ?, ?, ?, ?)`,
                 [1, id_department, hash, full_name, phone, email],
                 function(err) {
@@ -100,7 +95,7 @@ app.post('/task', (req, res) => {
                     if(err) {
                         return res.status(400).json({ error: err.message});
                     }
-                    res.status(201).json({message: 'Задача создана', taskId: this.lastID});
+                    res.status(201).json({message: 'Обращение создано', taskId: this.lastID});
                 })
         })
     })
@@ -119,7 +114,6 @@ app.get('/task', (req, res) => {
             return res.status(401).json({ message: 'Неверный токен' });
         }
 
-        // Получаем задачи для пользователя
         db.all(`
             SELECT 
                 task.id AS task_id,
